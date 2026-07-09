@@ -1,51 +1,25 @@
-import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED_PATHS = ["/mi-cuenta"];
+// Lightweight route protection. We deliberately DON'T import @supabase/ssr
+// here: it pulls @supabase/supabase-js (Node-only APIs) into the Edge Runtime
+// where middleware executes, which crashes with "__dirname is not defined".
+// This middleware only checks whether a Supabase auth cookie is present; the
+// actual session validation still happens server-side in the /mi-cuenta page
+// via supabase.auth.getUser(), so an invalid/expired cookie is still rejected.
+export function middleware(request: NextRequest) {
+  const hasSession = request.cookies
+    .getAll()
+    .some((c) => c.name.startsWith("sb-") && c.name.includes("-auth-token"));
 
-export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({ request });
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
-          response = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const isProtected = PROTECTED_PATHS.some((path) =>
-    request.nextUrl.pathname.startsWith(path)
-  );
-
-  if (isProtected && !user) {
+  if (!hasSession) {
     const redirectUrl = new URL("/login", request.url);
     redirectUrl.searchParams.set("redirectTo", request.nextUrl.pathname);
     return NextResponse.redirect(redirectUrl);
   }
 
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+  matcher: ["/mi-cuenta/:path*"],
 };
