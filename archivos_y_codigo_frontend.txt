@@ -1,0 +1,2471 @@
+===== tailwind.config.ts =====
+
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  darkMode: "class",
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        'urbanist': ['var(--font-urbanist)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+      },
+      colors: {
+        primary: "#AF7E44",       
+        secondary: "#6A806C",     
+        textblanco: "#ffffffff",  
+        darkBg: "#292929ff",      
+        textbox: "#ffffffff",     
+        border: "#d11fc2ff",      
+      },
+      backgroundImage: {
+        "gradient-cover": "linear-gradient(90deg, #FEFFFF 0%, #DEF2F1 100%)",
+        "gradient-cover-dark": "linear-gradient(90deg, rgba(194, 204, 207, 0.9) 0%, rgba(58, 175, 169, 0.5) 100%)",
+      },
+      // Mantener el resto de tu configuración pero agregar font-family
+      screens: {
+        'xs': '320px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+        'landscape': {'raw': '(orientation: landscape)'},
+        'portrait': {'raw': '(orientation: portrait)'},
+        'h-sm': {'raw': '(max-height: 640px)'},
+        'h-md': {'raw': '(max-height: 768px)'},
+        'retina': {'raw': '(-webkit-min-device-pixel-ratio: 2)'},
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '92': '23rem',
+        '100': '25rem',
+        '104': '26rem',
+        '108': '27rem',
+        '112': '28rem',
+        '116': '29rem',
+        '120': '30rem',
+      },
+      fontSize: {
+        'xs-mobile': ['0.875rem', { lineHeight: '1.25rem' }],
+        'sm-mobile': ['1rem', { lineHeight: '1.5rem' }],
+        'base-mobile': ['1.125rem', { lineHeight: '1.75rem' }],
+        'lg-mobile': ['1.25rem', { lineHeight: '1.875rem' }],
+        'xl-mobile': ['1.375rem', { lineHeight: '2rem' }],
+        '2xl-mobile': ['1.5rem', { lineHeight: '2.25rem' }],
+        '3xl-mobile': ['1.875rem', { lineHeight: '2.5rem' }],
+        '4xl-mobile': ['2.25rem', { lineHeight: '2.75rem' }],
+        '5xl-mobile': ['2.75rem', { lineHeight: '3.25rem' }],
+        '6xl-mobile': ['3.25rem', { lineHeight: '3.75rem' }],
+        'hero-mobile': ['3.5rem', { lineHeight: '4rem' }],
+        'hero-sm': ['4rem', { lineHeight: '4.5rem' }],
+        'hero-md': ['4.5rem', { lineHeight: '5rem' }],
+        'hero-lg': ['5rem', { lineHeight: '5.5rem' }],
+      },
+      maxWidth: {
+        'xs': '20rem',
+        'sm-mobile': '24rem',
+        'mobile': '28rem',
+      },
+      borderRadius: {
+        '4xl': '2rem',
+        '5xl': '2.5rem',
+        '6xl': '3rem',
+      },
+      boxShadow: {
+        'mobile': '0 2px 8px -2px rgba(0, 0, 0, 0.1)',
+        'mobile-lg': '0 4px 16px -4px rgba(0, 0, 0, 0.15)',
+        'mobile-xl': '0 8px 32px -8px rgba(0, 0, 0, 0.2)',
+        'mobile-inner': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+      },
+      animation: {
+        'bounce-mobile': 'bounce 1.5s infinite',
+        'pulse-mobile': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'spin-mobile': 'spin 2s linear infinite',
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'slide-down': 'slideDown 0.3s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+          '0%': { transform: 'translateY(-100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+      },
+      zIndex: {
+        '60': '60',
+        '70': '70',
+        '80': '80',
+        '90': '90',
+        '100': '100',
+      },
+      aspectRatio: {
+        '4/3': '4 / 3',
+        '3/2': '3 / 2',
+        '2/3': '2 / 3',
+        '9/16': '9 / 16',
+      },
+      backdropBlur: {
+        'xs': '2px',
+        '4xl': '72px',
+        '5xl': '96px',
+      },
+    },
+  },
+  plugins: [
+    function({ addUtilities, theme }: { addUtilities: any; theme: any }) {
+      const newUtilities = {
+        '.touch-target': {
+          minHeight: '48px',
+          minWidth: '48px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        '.touch-target-lg': {
+          minHeight: '56px',
+          minWidth: '56px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        '.no-zoom': {
+          fontSize: '16px !important',
+          WebkitTextSizeAdjust: '100%',
+          MozTextSizeAdjust: '100%',
+          MsTextSizeAdjust: '100%',
+          textSizeAdjust: '100%',
+        },
+        '.scroll-smooth-mobile': {
+          scrollBehavior: 'smooth',
+          WebkitOverflowScrolling: 'touch',
+        },
+        '.center-absolute': {
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        },
+        '.glass-mobile': {
+          backgroundColor: 'rgba(255, 255, 255, 0.25)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+        },
+        '.safe-top': {
+          paddingTop: 'env(safe-area-inset-top)',
+        },
+        '.safe-bottom': {
+          paddingBottom: 'env(safe-area-inset-bottom)',
+        },
+        '.safe-left': {
+          paddingLeft: 'env(safe-area-inset-left)',
+        },
+        '.safe-right': {
+          paddingRight: 'env(safe-area-inset-right)',
+        },
+        '.safe-all': {
+          padding: 'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
+        },
+        '.no-select': {
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          MsUserSelect: 'none',
+          userSelect: 'none',
+        },
+        '.gpu-boost': {
+          transform: 'translate3d(0, 0, 0)',
+          WebkitBackfaceVisibility: 'hidden',
+          backfaceVisibility: 'hidden',
+          WebkitPerspective: '1000',
+          perspective: '1000',
+        },
+        '.text-mobile-readable': {
+          fontSize: '16px',
+          lineHeight: '1.5',
+          WebkitTextSizeAdjust: 'none',
+          MozTextSizeAdjust: 'none',
+          MsTextSizeAdjust: 'none',
+          textSizeAdjust: 'none',
+        },
+        '.mobile-container': {
+          width: '100%',
+          paddingLeft: '1rem',
+          paddingRight: '1rem',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          '@media (min-width: 640px)': {
+            paddingLeft: '1.5rem',
+            paddingRight: '1.5rem',
+          },
+        },
+      }
+      
+      addUtilities(newUtilities)
+    }
+  ],
+};
+
+export default config;
+
+
+
+===== app/layout.tsx =====
+
+import { Urbanist } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+import "./globals.css";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import Navbar from "@/components/navbar";
+import Header from "@/components/header";
+import Footer from "@/components/Footer";
+
+const urbanist = Urbanist({ 
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-urbanist',
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+  preload: true,
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="es" suppressHydrationWarning className="transition-colors duration-300">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="color-scheme" content="light" />
+        <meta name="theme-color" content="#F4D6BA" />
+        <link
+          rel="preload"
+          href="/_next/static/media/urbanist-latin-400-normal.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body 
+        className={`${urbanist.variable} font-sans antialiased transition-colors overflow-x-hidden text-gray-900 bg-[#F4D6BA]`}
+        style={{
+          fontFamily: 'var(--font-urbanist), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        }}
+      >
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="light" 
+          enableSystem={false}
+          disableTransitionOnChange={false}
+          storageKey="essentia-theme"
+        >
+          {/* Forzar colores base */}
+          <div className="min-h-screen bg-[#F4D6BA] text-gray-900">
+            {/* Header responsive */}
+            <Header />
+            
+            {/* Contenido principal - AQUÍ ES DONDE VA EL PADDING PARA EL NAVBAR */}
+            <main 
+              className="min-h-screen pt-16 sm:pt-20 md:pt-24 lg:pt-28 xl:pt-32 px-3 sm:px-4 md:px-6 lg:px-8 bg-[#F4D6BA]"
+              style={{
+                /* Padding bottom para que el contenido no quede debajo del navbar */
+                paddingBottom: '100px'
+              }}
+            >
+              <div className="w-full max-w-7xl mx-auto">
+                {children}
+              </div>
+            </main>
+            
+            {/* Footer - también necesita margen para no quedar debajo del navbar */}
+            <div style={{ marginBottom: '100px' }}>
+              <Footer />
+            </div>
+          </div>
+          
+          {/* Navbar usando Portal - se renderiza directamente en body */}
+          <Navbar />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+
+
+
+===== app/page.tsx =====
+
+'use client'
+import { useEffect, useState } from 'react'
+import { parrafosInicio, introductionData } from '@/data'
+import { MotionTransition } from '@/components/transition-component'
+import { TypeAnimation } from 'react-type-animation'
+export default function Home() {
+  const [mensaje, setMensaje] = useState('Estamos preparando tu experiencia...')
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    fetch('https://essentialux-1.onrender.com/')
+      .then((res) => res.json())
+      .then((data) => {
+        setMensaje(data.message)
+        setIsLoading(false)
+      })
+      .catch(() => {
+        setMensaje('Error al conectar con el backend')
+        setIsLoading(false)
+      })
+  }, [])
+  return (
+    <div className="relative w-full min-h-screen overflow-hidden pb-16 pt-8">
+      
+      {/* Fondo animado con gradientes corporativos */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-green-50 to-slate-50">
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-100/30 via-transparent to-green-100/30"></div>
+      </div>
+      {/* Elementos decorativos flotantes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Círculos flotantes animados con colores corporativos */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-[#AF7E44]/20 to-[#6A806C]/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-16 w-24 h-24 bg-gradient-to-br from-[#6A806C]/20 to-[#AF7E44]/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 left-1/4 w-40 h-40 bg-gradient-to-br from-[#AF7E44]/15 to-[#6A806C]/15 rounded-full blur-2xl animate-pulse delay-2000"></div>
+        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-gradient-to-br from-[#6A806C]/20 to-[#AF7E44]/20 rounded-full blur-xl animate-pulse delay-500"></div>
+        
+        {/* Formas geométricas sutiles */}
+        <div className="absolute top-1/4 left-1/2 w-2 h-2 bg-[#AF7E44]/30 rounded-full animate-ping"></div>
+        <div className="absolute top-3/4 left-1/4 w-1 h-1 bg-[#6A806C]/40 rounded-full animate-ping delay-1000"></div>
+        <div className="absolute top-1/2 right-1/4 w-1.5 h-1.5 bg-[#AF7E44]/35 rounded-full animate-ping delay-2000"></div>
+      </div>
+      <section className="relative z-10 w-full min-h-screen flex flex-col items-center justify-center space-y-8 sm:space-y-12 md:space-y-16 px-4 sm:px-6 md:px-8">
+        {/* Header con logo personalizado */}
+        <MotionTransition
+          position="bottom"
+          className="text-center space-y-4"
+        >
+          <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-gradient-to-br from-[#AF7E44] to-[#6A806C] rounded-full shadow-lg shadow-[#AF7E44]/25 mb-4 p-2">
+            <img 
+              src="/icono.png" 
+              alt="Essentia Lux Logo" 
+              className="w-12 h-12 sm:w-16 sm:h-16 md:w-18 md:h-18 object-contain filter brightness-0 invert"
+              onError={(e) => {
+                // Fallback en caso de que la imagen no cargue
+                e.currentTarget.style.display = 'none';
+                const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                if (nextElement) {
+                  nextElement.style.display = 'block';
+                }
+              }}
+            />
+            {/* SVG de respaldo (se oculta por defecto) */}
+            <svg 
+              className="w-12 h-12 sm:w-16 sm:h-16 md:w-18 md:h-18 text-white hidden" 
+              fill="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+          </div>
+          <div className="text-center">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black bg-gradient-to-r from-[#AF7E44] via-[#6A806C] to-[#AF7E44] bg-clip-text text-transparent leading-tight">
+              Essentia Lux
+            </h1>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold bg-gradient-to-r from-[#6A806C] via-[#AF7E44] to-[#6A806C] bg-clip-text text-transparent leading-tight mt-1">
+              Aesthetic Medicine
+            </h2>
+          </div>
+          <p className="text-gray-600 text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl max-w-md mx-auto font-medium">
+            Tu experiencia de belleza personalizada
+          </p>
+        </MotionTransition>
+        {/* Bloque central con glassmorphism avanzado */}
+        <MotionTransition
+          position="bottom"
+          className="w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl"
+        >
+          <div className="relative group">
+            {/* Glow effect con colores corporativos */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#AF7E44] via-[#6A806C] to-[#AF7E44] rounded-3xl blur-lg opacity-20 group-hover:opacity-30 transition-all duration-1000"></div>
+            
+            {/* Contenido principal */}
+            <div className="relative backdrop-blur-xl bg-white/70 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 text-center space-y-6 sm:space-y-8 border border-white/30 overflow-hidden">
+              
+              {/* Decoración interna con colores corporativos */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#AF7E44]/30 to-transparent rounded-full -translate-y-16 translate-x-16"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#6A806C]/30 to-transparent rounded-full translate-y-12 -translate-x-12"></div>
+              
+              {/* Contenido */}
+              <div className="relative z-10">
+                {isLoading ? (
+                  <div className="flex flex-col items-center space-y-4">
+                    {/* Skeleton loader elegante con colores corporativos */}
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 bg-gradient-to-r from-[#AF7E44] to-[#6A806C] rounded-full animate-bounce"></div>
+                      <div className="w-3 h-3 bg-gradient-to-r from-[#6A806C] to-[#AF7E44] rounded-full animate-bounce delay-100"></div>
+                      <div className="w-3 h-3 bg-gradient-to-r from-[#AF7E44] to-[#6A806C] rounded-full animate-bounce delay-200"></div>
+                    </div>
+                    <p className="text-gray-600 text-lg sm:text-xl md:text-2xl animate-pulse font-medium">
+                      {mensaje}
+                    </p>
+                  </div>
+                ) : mensaje && !mensaje.startsWith('Error') ? (
+                  <div className="space-y-6 sm:space-y-8">
+                    {parrafosInicio.map((linea, i) => (
+                      <div key={i} className="relative">
+                        <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-[#AF7E44] to-[#6A806C] rounded-full opacity-30"></div>
+                        <p className="text-gray-700 text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl leading-relaxed font-medium tracking-wide pl-6">
+                          {linea}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center space-x-3 text-red-500">
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl font-medium">
+                      {mensaje}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </MotionTransition>
+        {/* Animación de texto con estilo mejorado */}
+        <MotionTransition position="bottom">
+          <div className="text-center px-4 sm:px-6 max-w-4xl mx-auto">
+            <div className="relative inline-block">
+              {/* Fondo decorativo para el texto */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#AF7E44]/10 via-[#6A806C]/10 to-[#AF7E44]/10 blur-xl rounded-2xl"></div>
+              
+              <div className="relative backdrop-blur-sm bg-white/30 rounded-2xl px-6 py-4 border border-white/20">
+                <TypeAnimation
+                  key={introductionData.tituloPrincipal}
+                  sequence={introductionData.frases.flatMap((frase: string) => [frase, 2000])}
+                  wrapper="span"
+                  speed={50}
+                  repeat={Infinity}
+                  className="font-black bg-gradient-to-r from-[#AF7E44] via-[#6A806C] to-[#AF7E44] bg-clip-text text-transparent text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl leading-tight tracking-wide"
+                />
+                
+                {/* Cursor personalizado */}
+                <span className="inline-block w-1 h-10 sm:h-12 md:h-14 bg-gradient-to-b from-[#AF7E44] to-[#6A806C] ml-1 animate-pulse rounded-full"></span>
+              </div>
+            </div>
+          </div>
+        </MotionTransition>
+        {/* Floating elements decorativos con colores corporativos */}
+        <div className="hidden lg:block absolute top-1/4 left-8 opacity-60">
+          <div className="flex flex-col space-y-4">
+            <div className="w-8 h-8 bg-gradient-to-br from-[#AF7E44] to-[#6A806C] rounded-lg rotate-45 shadow-lg"></div>
+            <div className="w-6 h-6 bg-gradient-to-br from-[#6A806C] to-[#AF7E44] rounded-full shadow-md"></div>
+            <div className="w-4 h-4 bg-gradient-to-br from-[#AF7E44] to-[#6A806C] rounded-lg shadow-sm"></div>
+          </div>
+        </div>
+        <div className="hidden lg:block absolute top-1/3 right-8 opacity-60">
+          <div className="flex flex-col space-y-4">
+            <div className="w-6 h-6 bg-gradient-to-bl from-[#6A806C] to-[#AF7E44] rounded-full shadow-md"></div>
+            <div className="w-8 h-8 bg-gradient-to-bl from-[#AF7E44] to-[#6A806C] rounded-lg -rotate-12 shadow-lg"></div>
+            <div className="w-4 h-4 bg-gradient-to-bl from-[#6A806C] to-[#AF7E44] rounded-lg shadow-sm"></div>
+          </div>
+        </div>
+      </section>
+      {/* Estilos CSS personalizados */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+      `}</style>
+    </div>
+  )
+}
+
+
+
+
+
+
+
+
+
+===== components/avatar-portfolio.tsx =====
+
+"use client";
+
+import Image from 'next/image';
+import { MotionTransition } from './transition-component';
+
+const AvatarPortfolio = () => {
+    return (
+        <MotionTransition position='bottom' className="bottom-0 left-0 hidden md:inline-block md:absolute md:top-[1550px]">
+            <Image src="/avatar.png" width={400} height={400} alt="Particles" />
+        </MotionTransition>
+    );
+}
+
+export default AvatarPortfolio;
+
+
+
+===== components/avatar-services.tsx =====
+
+import Image from "next/image";
+import { MotionTransition } from "./transition-component";
+
+const AvatarServices = () => {
+    return (
+        <MotionTransition position='right' className="hidden md:inline-block md:absolute top-1/3 right-0 -translate-y-1/2">
+            <Image src="/services.png" width="400" height="400" className="w-[300px] h-full " alt="Particles " />
+        </MotionTransition>
+    );
+}
+
+export default AvatarServices;
+
+
+
+===== components/avatar.tsx =====
+
+
+"use client";
+
+import Image from "next/image";
+
+import { MotionTransition } from "./transition-component";
+
+export function Avatar() {
+    return (
+        <MotionTransition position="bottom" className="bottom-0 right-0 hidden md:inline-block md:absolute ">
+            <Image src="/avatar-1.png" width="400" height="400" className="w-full h-full " alt="Particles " />
+        </MotionTransition>
+    )
+}
+
+
+
+===== components/circle-image.tsx =====
+
+"use client";
+
+import Image from 'next/image'
+
+const CircleImage = () => {
+    return (
+        <div className="bottom-0 right-0 hidden md:inline-block md:absolute">
+            <Image src="/circles.png" width="300" height="300" className="w-full h-full " alt="Particles " />
+        </div>
+
+    );
+}
+
+export default CircleImage;
+
+
+
+===== components/container-page.tsx =====
+
+interface ContainerPageProps {
+    children: React.ReactNode
+}
+
+const ContainerPage = (props: ContainerPageProps) => {
+    const { children } = props
+
+    return (
+        <div className="w-full max-w-6xl px-4 pb-40 mx-auto mt-40 md:pb-0 md:px-6">
+            {children}
+        </div>
+    );
+}
+
+export default ContainerPage;
+
+
+===== components/Footer.tsx =====
+
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FaWhatsapp, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+
+const Footer = () => {
+  // Número de teléfono y mensaje predeterminado para WhatsApp
+  const whatsappNumber = "34691589789";
+  const whatsappMessage = encodeURIComponent(
+    "¡Hola! Me interesa conocer más sobre los tratamientos de medicina estética. ¿Podrían proporcionarme información?"
+  );
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+  return (
+    <footer className="relative bg-transparent py-8 sm:py-12 md:py-16 lg:py-20 overflow-hidden">
+      {/* Elementos decorativos de fondo más sutiles */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200/30 to-transparent"></div>
+      <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-gradient-to-bl from-primary/3 to-transparent rounded-full -translate-y-12 sm:-translate-y-16 translate-x-12 sm:translate-x-16"></div>
+      <div className="absolute bottom-0 left-0 w-32 sm:w-48 h-32 sm:h-48 bg-gradient-to-tr from-secondary/2 to-transparent rounded-full translate-y-16 sm:translate-y-24 -translate-x-16 sm:-translate-x-24"></div>
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        
+        {/* Logos de marcas - con fondo más transparente */}
+        <div className="mb-8 sm:mb-12 md:mb-16">
+          <h3 className="text-center text-sm sm:text-base font-medium text-gray-500 uppercase tracking-wider mb-6 sm:mb-8">
+            Marcas de Confianza
+          </h3>
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+            {[1, 2, 3, 4].map((num) => (
+              <div key={num} className="group">
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-4 sm:p-6 md:p-8 lg:p-10 group-hover:scale-105 border border-white/20">
+                  <Image 
+                    src={`/marca${num}.png`} 
+                    alt={`Marca ${num}`} 
+                    width={200} 
+                    height={150} 
+                    className="w-20 h-12 sm:w-24 sm:h-16 md:w-32 md:h-24 lg:w-40 lg:h-50 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Información principal de la clínica */}
+        <div className="text-center max-w-5xl mx-auto mb-8 sm:mb-12">
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
+              ESSENTIA LUX
+            </h2>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 font-light tracking-wide">
+              Aesthetic Medicine
+            </p>
+            <div className="w-20 sm:w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mt-3 sm:mt-4"></div>
+          </div>
+
+          {/* Información de contacto en cards más transparentes */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto">
+            
+            {/* Ubicación */}
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 group border border-white/20">
+              <div className="flex justify-center mb-3 sm:mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <FaMapMarkerAlt className="text-white text-base sm:text-lg" />
+                </div>
+              </div>
+              <h3 className="font-semibold text-gray-800 mb-2 text-base sm:text-lg">Ubicación</h3>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                Centro Medico Lealtad<br />
+                C. Lealtad, 12, Esc A 1º Izda<br />
+                39002 Santander, Cantabria
+              </p>
+            </div>
+
+            {/* Teléfono/WhatsApp */}
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 group border border-white/20">
+              <div className="flex justify-center mb-3 sm:mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <FaWhatsapp className="text-white text-base sm:text-lg" />
+                </div>
+              </div>
+              <h3 className="font-semibold text-gray-800 mb-2 sm:mb-3 text-base sm:text-lg">WhatsApp</h3>
+              <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors duration-300 hover:scale-105 transform text-base sm:text-lg"
+              >
+                +34 691 58 9789
+              </a>
+            </div>
+
+            {/* Email */}
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 group border border-white/20">
+              <div className="flex justify-center mb-3 sm:mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <FaEnvelope className="text-white text-base sm:text-lg" />
+                </div>
+              </div>
+              <h3 className="font-semibold text-gray-800 mb-2 sm:mb-3 text-base sm:text-lg">Email</h3>
+              <a 
+                href="mailto:info@essluxam.com" 
+                className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300 hover:scale-105 transform inline-block text-base sm:text-lg"
+              >
+                info@essluxam.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Línea divisoria más sutil */}
+        <div className="relative mb-6 sm:mb-8">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300/30"></div>
+          </div>
+          <div className="relative flex justify-center">
+            <div className="bg-transparent px-4 sm:px-6">
+              <div className="w-2 h-2 bg-gradient-to-r from-primary to-secondary rounded-full opacity-60"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Enlaces legales */}
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+            <Link 
+              href="/aviso-legal" 
+              className="text-gray-600 hover:text-primary transition-all duration-300 font-medium relative group text-base sm:text-lg"
+            >
+              Aviso Legal
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
+            </Link>
+            <Link 
+              href="/politica-privacidad" 
+              className="text-gray-600 hover:text-primary transition-all duration-300 font-medium relative group text-base sm:text-lg"
+            >
+              Política de Privacidad
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
+            </Link>
+            <Link 
+              href="/politica-cookies" 
+              className="text-gray-600 hover:text-primary transition-all duration-300 font-medium relative group text-base sm:text-lg"
+            >
+              Política de Cookies
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Créditos finales más transparentes */}
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-white/5 backdrop-blur-sm rounded-full border border-white/10">
+            <div className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse opacity-60"></div>
+            <p className="text-sm sm:text-base text-gray-500">
+              © {new Date().getFullYear()} Essentia Lux Aesthetic Medicine. Todos los derechos reservados.
+            </p>
+            <div className="w-1.5 h-1.5 bg-secondary rounded-full animate-pulse opacity-60"></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
+
+
+
+===== components/header.tsx =====
+
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { MotionTransition } from "./transition-component";
+import { socialNetworks } from "@/data";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
+const Header = () => {
+  const pathname = usePathname();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return (
+    <MotionTransition
+      key={pathname}
+      position="bottom"
+      className="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-200/50 shadow-sm"
+    >
+      <header className="w-full py-3 sm:py-4 md:py-5 px-4 sm:px-6 md:px-8">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          
+          {/* Logo responsivo mejorado con tamaños más grandes */}
+          <Link href="/" className="flex-shrink-0 flex items-center gap-3 sm:gap-4">
+            <div className="relative">
+              <Image
+                src="/icono.png"
+                alt="Icono Essentia Lux"
+                width={isMobile ? 50 : 70}
+                height={isMobile ? 50 : 70}
+                className="w-12 h-12 sm:w-16 sm:h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 object-contain"
+                priority={true}
+                quality={90}
+                sizes="(max-width: 768px) 50px, 70px"
+              />
+            </div>
+            <div className="flex flex-col text-left">
+              {/* Texto del logo más grande para móvil */}
+              <span className="text-primary font-bold text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight tracking-tight">
+                Essentia Lux
+              </span>
+              <span className="text-secondary font-medium text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl leading-tight">
+                Aesthetic Medicine
+              </span>
+            </div>
+          </Link>
+
+          {/* Redes sociales responsivas mejoradas */}
+          <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5">
+            {socialNetworks.map(({ id, logo, src }) => (
+              <Link
+                key={id}
+                href={src}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 sm:p-3 md:p-3.5 rounded-full transition-all duration-300 hover:bg-gray-100 hover:scale-110 active:scale-95 touch-target"
+                aria-label={`Visitar ${id}`}
+              >
+                <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl hover:text-secondary transition-colors duration-300 flex items-center justify-center">
+                  {logo}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </header>
+    </MotionTransition>
+  );
+};
+
+export default Header;
+
+
+
+===== components/introduction.tsx =====
+
+'use client';
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
+import { motion } from 'framer-motion';
+import { FaWhatsapp, FaInstagram, FaMapMarkerAlt, FaClock, FaUsers, FaEye, FaBullseye } from 'react-icons/fa';
+import { introductionData } from '../data';
+
+const Introduction = () => {
+  const { theme } = useTheme();
+  const backgroundClass = theme === '';
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  return (
+    <div className={`relative z-20 w-full min-h-screen transition-all duration-700 ${backgroundClass}`}>
+      {/* Elemento decorativo de fondo */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 sm:top-20 right-10 sm:right-20 w-32 sm:w-64 h-32 sm:h-64 bg-gradient-to-br from-secondary/10 to-primary/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 sm:bottom-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <motion.div 
+        className="relative z-30 max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Título principal con efecto hero - más grande en móvil */}
+        <motion.div 
+          className="text-center mb-12 sm:mb-16"
+          variants={itemVariants}
+        >
+          <motion.h1 
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-secondary via-primary to-secondary bg-clip-text text-transparent mb-4 sm:mb-6"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            {introductionData.tituloPrincipal}
+          </motion.h1>
+          
+          <motion.div 
+            className="w-20 sm:w-24 h-1 bg-gradient-to-r from-secondary to-primary mx-auto mb-6 sm:mb-8"
+            initial={{ width: 0 }}
+            animate={{ width: 96 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          ></motion.div>
+        </motion.div>
+
+        {/* Descripción principal - texto más grande */}
+        <motion.div 
+          className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-xl border border-white/20 mb-8 sm:mb-12"
+          variants={cardVariants}
+        >
+          <p className="text-lg sm:text-xl md:text-2xl leading-relaxed text-gray-700 dark:text-gray-300 text-center font-medium">
+            {introductionData.descripcion}
+          </p>
+        </motion.div>
+
+        {/* Misión y Visión en cards - texto más grande */}
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
+          <motion.div 
+            className="bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border border-secondary/20 hover:shadow-xl transition-all duration-300"
+            variants={cardVariants}
+            whileHover={{ scale: 1.02, y: -5 }}
+          >
+            <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="p-2.5 sm:p-3 bg-secondary/20 rounded-full">
+                <FaBullseye className="text-secondary text-xl sm:text-2xl" />
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary">Misión</h2>
+            </div>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-justify text-base sm:text-lg md:text-xl">
+              {introductionData.mision}
+            </p>
+          </motion.div>
+
+          <motion.div 
+            className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg border border-primary/20 hover:shadow-xl transition-all duration-300"
+            variants={cardVariants}
+            whileHover={{ scale: 1.02, y: -5 }}
+          >
+            <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="p-2.5 sm:p-3 bg-primary/20 rounded-full">
+                <FaEye className="text-primary text-xl sm:text-2xl" />
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">Visión</h2>
+            </div>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-justify text-base sm:text-lg md:text-xl">
+              {introductionData.vision}
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Frase inspiradora - más grande en móvil */}
+        <motion.div 
+          className="text-center mb-12 sm:mb-16"
+          variants={itemVariants}
+        >
+          <blockquote className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light italic text-secondary dark:text-primary leading-relaxed max-w-4xl mx-auto relative px-8 sm:px-12">
+            <span className="text-4xl sm:text-6xl text-secondary/20 absolute -top-4 sm:-top-6 -left-2 sm:-left-4">"</span>
+            {introductionData.fraseInspiradora}
+            <span className="text-4xl sm:text-6xl text-secondary/20 absolute -bottom-8 sm:-bottom-12 -right-2 sm:-right-4">"</span>
+          </blockquote>
+        </motion.div>
+
+        {/* Ubicación */}
+        <motion.div 
+          className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-xl border border-white/20 mb-8 sm:mb-12"
+          variants={cardVariants}
+        >
+          <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <div className="p-2.5 sm:p-3 bg-red-500/20 rounded-full">
+              <FaMapMarkerAlt className="text-red-500 text-xl sm:text-2xl" />
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary">Nuestra Ubicación</h2>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+            <div>
+              <motion.div 
+                className="relative rounded-2xl overflow-hidden shadow-lg border-4 border-white dark:border-gray-700"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Image
+                  src={introductionData.mapaImagen}
+                  alt="Mapa de ubicación"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+              </motion.div>
+            </div>
+            
+            <div className="space-y-4 sm:space-y-6">
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed text-center lg:text-left font-medium">
+                {introductionData.direccion}
+              </p>
+              
+              <motion.a
+                href={introductionData.mapasUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg text-base sm:text-lg font-semibold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FaMapMarkerAlt className="text-base sm:text-lg" />
+                Ver en Google Maps
+              </motion.a>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Equipo */}
+        <motion.div 
+          className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 shadow-xl border border-purple-200/50 dark:border-purple-800/50 mb-8 sm:mb-12"
+          variants={cardVariants}
+        >
+          <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <div className="p-2.5 sm:p-3 bg-purple-500/20 rounded-full">
+              <FaUsers className="text-purple-500 text-xl sm:text-2xl" />
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary">{introductionData.equipoTitulo}</h2>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+            <div className="order-2 lg:order-1 space-y-4 sm:space-y-6">
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed text-justify font-medium">
+                {introductionData.equipoDescripcion}
+              </p>
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line text-justify font-medium">
+                {introductionData.equipoDetalles}
+              </p>
+            </div>
+            
+            <div className="order-1 lg:order-2 flex justify-center">
+              <motion.div
+                className="relative"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary to-primary rounded-full blur-xl opacity-30"></div>
+                <Image
+                  src="/imagen_circular_recortada.png"
+                  alt={introductionData.equipoNombre}
+                  width={250}
+                  height={250}
+                  className="relative rounded-full shadow-2xl border-4 border-white dark:border-gray-700 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80"
+                />
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Horarios y Contacto */}
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
+          {/* Horarios */}
+          <motion.div 
+            className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl border border-green-200/50 dark:border-green-800/50"
+            variants={cardVariants}
+          >
+            <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="p-2.5 sm:p-3 bg-green-500/20 rounded-full">
+                <FaClock className="text-green-500 text-xl sm:text-2xl" />
+              </div>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-secondary">{introductionData.horariosTitulo}</h2>
+            </div>
+            
+            <div className="space-y-2 sm:space-y-3">
+              {introductionData.horarios.map((hora, i) => (
+                <motion.p 
+                  key={i}
+                  className="text-gray-700 dark:text-gray-300 p-3 sm:p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg text-center text-base sm:text-lg font-medium"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  {hora}
+                </motion.p>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Contacto */}
+          <motion.div 
+            className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl border border-blue-200/50 dark:border-blue-800/50"
+            variants={cardVariants}
+          >
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-secondary mb-4 sm:mb-6">{introductionData.contactoTitulo}</h2>
+            
+            <div className="space-y-3 sm:space-y-4">
+              <motion.a
+                href={`${introductionData.whatsapp.url}?text=${encodeURIComponent(
+                  '¡Hola! Estoy interesad@ en recibir información sobre los tratamientos médico estéticos. ¿Me puedes ayudar?'
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-green-500/10 hover:bg-green-500/20 rounded-xl transition-all duration-300 group border border-green-500/20 hover:border-green-500/40"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FaWhatsapp className="text-green-500 text-2xl sm:text-3xl group-hover:scale-110 transition-transform" />
+                <div>
+                  <p className="font-semibold text-green-600 text-base sm:text-lg">WhatsApp</p>
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">{introductionData.whatsapp.numero}</p>
+                </div>
+              </motion.a>
+
+              <motion.a
+                href={introductionData.instagram.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-pink-500/10 hover:bg-pink-500/20 rounded-xl transition-all duration-300 group border border-pink-500/20 hover:border-pink-500/40"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FaInstagram className="text-pink-500 text-2xl sm:text-3xl group-hover:scale-110 transition-transform" />
+                <div>
+                  <p className="font-semibold text-pink-600 text-base sm:text-lg">Instagram</p>
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Síguenos en redes</p>
+                </div>
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="h-12 sm:h-20" />
+      </motion.div>
+    </div>
+  );
+};
+
+export default Introduction;
+
+
+
+===== components/navbar.tsx =====
+
+'use client';
+
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import Link from "next/link";
+import { itemsNavbar } from "@/data";
+import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
+
+const Navbar = () => {
+  const [mounted, setMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const router = usePathname();
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (!mounted) return null;
+
+  const isSmallMobile = windowWidth < 400;
+  const isMobile = windowWidth < 768;
+
+  const NavbarContent = (
+    <div
+      style={{
+        position: 'fixed',
+        bottom: '24px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 999999,
+        pointerEvents: 'none',
+        // Estas propiedades aseguran que funcione igual en móvil
+        width: 'auto',
+        height: 'auto',
+        // Evita que se pegue a los bordes en móvil
+        margin: '0',
+        padding: '0',
+        // Fuerza el comportamiento flotante
+        isolation: 'isolate',
+      }}
+    >
+      <nav
+        style={{ 
+          pointerEvents: 'auto',
+          display: 'inline-flex',
+          // Asegura que el nav mantenga su forma
+          flexShrink: 0,
+          minWidth: 'fit-content',
+        }}
+      >
+        <div
+          className={`
+            flex items-center justify-center
+            ${isSmallMobile ? "gap-0.5" : isMobile ? "gap-1" : "gap-2"}
+            ${isSmallMobile ? "px-2 py-1.5" : isMobile ? "px-3 py-2" : "px-4 py-2"}
+            rounded-full backdrop-blur-md text-white
+            shadow-lg shadow-black/20 border border-white/10
+            transition-all duration-300
+          `}
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            // Estilos adicionales para móvil
+            minWidth: 'fit-content',
+            whiteSpace: 'nowrap',
+            // Previene que el navbar se expanda o contraiga
+            boxSizing: 'border-box',
+          }}
+        >
+          {itemsNavbar.map((item) => (
+            <Link href={item.link} key={item.id} className="group">
+              <div
+                className={`
+                  transition-all duration-300 rounded-full cursor-pointer
+                  active:scale-95
+                  ${
+                    router === item.link
+                      ? "scale-110 shadow-lg"
+                      : "hover:bg-white/20 hover:scale-110"
+                  }
+                  ${
+                    isSmallMobile
+                      ? "p-2"
+                      : isMobile
+                      ? "p-2.5 sm:px-3 sm:py-2.5"
+                      : "p-3 md:px-4 md:py-3"
+                  }
+                `}
+                style={{
+                  backgroundColor: router === item.link ? "#6A806C" : "transparent",
+                  touchAction: "manipulation",
+                  // Asegura que los botones mantengan su tamaño
+                  flexShrink: 0,
+                }}
+                title={item.title || item.link}
+              >
+                <div
+                  className={`
+                    transition-all duration-200
+                    ${
+                      isSmallMobile
+                        ? "text-sm"
+                        : isMobile
+                        ? "text-base sm:text-lg"
+                        : "text-lg md:text-xl"
+                    }
+                    ${
+                      router === item.link
+                        ? "text-white"
+                        : "text-white/90 group-hover:text-white"
+                    }
+                  `}
+                  style={{
+                    minWidth: isSmallMobile ? "20px" : "24px",
+                    minHeight: isSmallMobile ? "20px" : "24px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    // Previene que los iconos se deformen
+                    flexShrink: 0,
+                  }}
+                >
+                  {item.icon}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </nav>
+    </div>
+  );
+
+  // Renderizar usando portal para evitar interferencias del CSS padre
+  return typeof window !== 'undefined' 
+    ? createPortal(NavbarContent, document.body)
+    : null;
+};
+
+export default Navbar;
+
+
+
+===== components/resenas.tsx =====
+
+"use client";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+interface Resena {
+  nombre: string;
+  calificacion: number;
+  comentario: string;
+}
+
+export default function Resenas() {
+  const [resenas, setResenas] = useState<Resena[]>([]);
+  const [form, setForm] = useState<Resena>({
+    nombre: "",
+    calificacion: 5,
+    comentario: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [cargandoResenas, setCargandoResenas] = useState(true);
+
+  useEffect(() => {
+    cargarResenasSheets();
+  }, []);
+
+  const cargarResenasSheets = async () => {
+    setCargandoResenas(true);
+    try {
+      const res = await axios.get<[string, string, string][]>(
+        "https://essentialux-1.onrender.com/resenas"
+      );
+      const parsed: Resena[] = res.data.map(([nombre, estrellas, comentario]) => ({
+        nombre,
+        calificacion: estrellas.replace(/[^⭐]/g, "").length,
+        comentario,
+      }));
+      setResenas(parsed);
+    } catch (error) {
+      console.error("Error cargando reseñas de Sheets:", error);
+    } finally {
+      setCargandoResenas(false);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!form.nombre.trim() || !form.comentario.trim()) {
+      alert("Por favor completa todos los campos.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await axios.post("https://essentialux-1.onrender.com/resenas", form);
+      alert("¡Gracias por tu reseña!");
+      setForm({ nombre: "", calificacion: 5, comentario: "" });
+      await cargarResenasSheets();
+    } catch (error) {
+      console.error("Error enviando reseña:", error);
+      alert("Ocurrió un error al guardar tu reseña.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const renderStars = (rating: number) => {
+    return (
+      <div className="flex items-center">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <svg
+            key={star}
+            className={`w-5 h-5 ${
+              star <= rating ? "text-yellow-400 fill-current" : "text-gray-300"
+            }`}
+            viewBox="0 0 20 20"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        ))}
+        <span className="ml-2 text-sm text-gray-600">({rating}/5)</span>
+      </div>
+    );
+  };
+
+  const renderInteractiveStars = (
+    currentRating: number,
+    onChange: (rating: number) => void
+  ) => {
+    return (
+      <div className="flex items-center gap-1">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <button
+            key={star}
+            type="button"
+            onClick={() => onChange(star)}
+            className="hover:scale-110 transition-transform duration-150"
+          >
+            <svg
+              className={`w-8 h-8 cursor-pointer transition-colors duration-200 ${
+                star <= currentRating
+                  ? "text-yellow-400 fill-current hover:text-yellow-500"
+                  : "text-gray-300 hover:text-yellow-300"
+              }`}
+              viewBox="0 0 20 20"
+            >
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          </button>
+        ))}
+        <span className="ml-3 text-lg font-semibold text-gray-700">
+          {currentRating} estrella{currentRating !== 1 ? "s" : ""}
+        </span>
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-transparent">
+      <div className="max-w-4xl mx-auto px-4 py-16 space-y-16">
+        {/* Header con animación */}
+        <div className="text-center space-y-4">
+          <div className="inline-block p-4 bg-gradient-to-r from-[#6A806C] to-[#AF7E44] rounded-full shadow-lg mb-4">
+            <svg
+              className="w-12 h-12 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              />
+            </svg>
+          </div>
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-[#6A806C] to-[#AF7E44] bg-clip-text text-transparent">
+            Reseñas de Nuestros Pacientes
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Conoce las experiencias reales de quienes han confiado en nuestros servicios de salud
+          </p>
+        </div>
+
+        {/* Spinner de carga */}
+        {cargandoResenas ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-6">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-[#6A806C]"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="animate-pulse bg-[#6A806C] rounded-full h-4 w-4"></div>
+              </div>
+            </div>
+            <div className="text-center space-y-2">
+              <p className="text-xl font-semibold text-gray-700">Cargando experiencias...</p>
+              <p className="text-gray-500">Por favor espere mientras iniciamos el servidor</p>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Estadísticas rápidas */}
+            {resenas.length > 0 && (
+              <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                  <div className="space-y-2">
+                    <div className="text-4xl font-bold text-[#6A806C]">{resenas.length}</div>
+                    <div className="text-gray-600">Reseñas totales</div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-4xl font-bold text-yellow-500">
+                      {resenas.length > 0
+                        ? (resenas.reduce((acc, r) => acc + r.calificacion, 0) / resenas.length).toFixed(1)
+                        : "0"}
+                    </div>
+                    <div className="text-gray-600">Promedio</div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-4xl font-bold text-green-600">
+                      {resenas.filter((r) => r.calificacion >= 4).length}
+                    </div>
+                    <div className="text-gray-600">Satisfechos</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Reseñas existentes */}
+            <section className="space-y-8">
+              <div className="text-center">
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">💬 Opiniones Reales</h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-[#6A806C] to-[#AF7E44] mx-auto rounded-full"></div>
+              </div>
+
+              {resenas.length === 0 ? (
+                <div className="text-center py-16 bg-white rounded-2xl shadow-lg border border-gray-100">
+                  <div className="text-gray-400 mb-4">
+                    <svg
+                      className="w-16 h-16 mx-auto"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-xl text-gray-500">Sé el primero en compartir tu experiencia</p>
+                </div>
+              ) : (
+                <div className="grid gap-6">
+                  {resenas.map((r, i) => (
+                    <div
+                      key={i}
+                      className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group"
+                    >
+                      <div className="p-8 space-y-4">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center space-x-4">
+                            <div className="w-12 h-12 bg-gradient-to-r from-[#6A806C] to-[#AF7E44] rounded-full flex items-center justify-center text-white font-bold text-lg">
+                              {r.nombre.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                              <h3 className="text-xl font-semibold text-gray-800">{r.nombre}</h3>
+                              <div className="mt-1">{renderStars(r.calificacion)}</div>
+                            </div>
+                          </div>
+                          <div className="text-gray-400">
+                            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                            </svg>
+                          </div>
+                        </div>
+                        <blockquote className="text-gray-700 leading-relaxed text-lg italic pl-4 border-l-4 border-[#6A806C]">
+                          "{r.comentario}"
+                        </blockquote>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {/* Formulario para nueva reseña */}
+            <section className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+              <div className="bg-gradient-to-r from-[#6A806C] to-[#AF7E44] px-8 py-6">
+                <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                  <svg
+                    className="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                    />
+                  </svg>
+                  Comparte Tu Experiencia
+                </h2>
+                <p className="text-white/80 mt-2">Tu opinión nos ayuda a mejorar continuamente</p>
+              </div>
+
+              <div className="p-8 space-y-6">
+                <div className="space-y-2">
+                  <label htmlFor="nombre" className="block text-sm font-semibold text-gray-700">
+                    Tu nombre *
+                  </label>
+                  <input
+                    id="nombre"
+                    type="text"
+                    className="w-full p-4 border-2 border-gray-200 rounded-xl bg-gray-50 text-black focus:border-[#6A806C] focus:bg-white transition-all duration-200 outline-none"
+                    placeholder="Escribe tu nombre completo"
+                    value={form.nombre}
+                    onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="comentario" className="block text-sm font-semibold text-gray-700">
+                    Tu comentario *
+                  </label>
+                  <textarea
+                    id="comentario"
+                    className="w-full p-4 border-2 border-gray-200 rounded-xl bg-gray-50 text-black focus:border-[#6A806C] focus:bg-white transition-all duration-200 outline-none resize-none"
+                    placeholder="Comparte tu experiencia con nuestro servicio..."
+                    rows={5}
+                    value={form.comentario}
+                    onChange={(e) => setForm({ ...form, comentario: e.target.value })}
+                  />
+                </div>
+
+                <div className="space-y-3">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Tu calificación *
+                  </label>
+                  {renderInteractiveStars(form.calificacion, (rating) =>
+                    setForm({ ...form, calificacion: rating })
+                  )}
+                </div>
+
+                <button
+                  onClick={handleSubmit}
+                  disabled={loading || !form.nombre.trim() || !form.comentario.trim()}
+                  className="w-full bg-gradient-to-r from-[#6A806C] to-[#AF7E44] text-white py-4 px-8 rounded-xl hover:from-[#6A806C] hover:to-[#AF7E44] transition-all duration-200 font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95 shadow-lg"
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
+                      Enviando tu reseña...
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center gap-3">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                        />
+                      </svg>
+                      Enviar mi reseña
+                    </div>
+                  )}
+                </button>
+              </div>
+            </section>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+
+===== components/reservar.tsx =====
+
+"use client";
+
+import { useState, useEffect } from "react";
+
+const empleados = ["Dra. Catalina Tenjo"];
+const servicios = [
+  "Valoración diagnóstica",
+  "Peeling químico facial",
+  "Mesoterapia facial, cuello, escote y manos",
+  "Mesoterapia capilar",
+  "Mesoterapia lipolítica",
+  "Carboxiterapia facial",
+  "Carboxiterapia corporal",
+  "Plasma rico en plaquetas facial y capilar",
+  "Relleno de labios",
+  "Relleno facial",
+  "Hilos tensores",
+  "Rejuvenecimiento tercio superior y escote con neuromodulador",
+  "Infiltración de toxina botulínica para bruxismo",
+  "Infiltración de toxina botulínica para hiperhidrosis",
+  "Rinomodelación",
+  "Crioterapia",
+  "Radiofrecuencia Facial",
+  "Radiofrecuencia Corporal",
+  "Cavitación",
+  "Lipoláser",
+];
+
+const esHorarioValido = (hora: string): boolean => {
+  const [horaNum, minutos] = hora.split(':').map(Number);
+  const horaEnMinutos = horaNum * 60 + minutos;
+  return horaEnMinutos >= 900 && horaEnMinutos <= 1170;
+};
+
+const esDiaLaborable = (fecha: string): boolean => {
+  const date = new Date(fecha + 'T00:00:00');
+  const dayOfWeek = date.getDay();
+  return dayOfWeek >= 1 && dayOfWeek <= 5;
+};
+
+export default function Reservar() {
+  const [form, setForm] = useState({
+    nombre: "",
+    celular: "",
+    email: "",
+    fecha: "",
+    hora: "",
+    servicio: "",
+    empleado: "Dra. Catalina Tenjo",
+    nota: "",
+  });
+
+  const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
+  const [mensaje, setMensaje] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const obtenerHoras = async () => {
+      if (!form.fecha || !form.empleado) return;
+
+      if (!esDiaLaborable(form.fecha)) {
+        setHorasDisponibles([]);
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `https://essentialux-1.onrender.com/horas-disponibles?fecha=${form.fecha}&empleado=${form.empleado}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          const horariosFiltrados = data.filter((hora: string) => esHorarioValido(hora));
+          setHorasDisponibles(horariosFiltrados);
+        } else {
+          setHorasDisponibles([]);
+        }
+      } catch (err) {
+        console.error("Error obteniendo horas:", err);
+        setHorasDisponibles([]);
+      }
+    };
+
+    obtenerHoras();
+  }, [form.fecha, form.empleado]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMensaje("");
+    setLoading(true);
+
+    if (
+      !form.nombre.trim() ||
+      !form.celular.trim() ||
+      !form.email.trim() ||
+      !form.fecha ||
+      !form.hora ||
+      !form.servicio
+    ) {
+      setMensaje("❌ Todos los campos obligatorios deben ser completados.");
+      setLoading(false);
+      return;
+    }
+
+    if (!esDiaLaborable(form.fecha)) {
+      setMensaje("❌ Solo se pueden reservar citas de Lunes a Viernes.");
+      setLoading(false);
+      return;
+    }
+
+    if (!esHorarioValido(form.hora)) {
+      setMensaje("❌ El horario seleccionado no está disponible. Horario de atención: 15:00 - 19:30");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("https://essentialux-1.onrender.com/reservar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setMensaje(data.mensaje?.replace(/\n/g, "<br>") || "✅ Tu cita fue reservada con éxito.");
+        setForm({
+          nombre: "",
+          celular: "",
+          email: "",
+          fecha: "",
+          hora: "",
+          servicio: "",
+          empleado: "Dra. Catalina Tenjo",
+          nota: "",
+        });
+        setHorasDisponibles([]);
+      } else {
+        setMensaje(`❌ Error: ${data.error || "Ocurrió un error al reservar"}`);
+      }
+    } catch (err) {
+      console.error("Error al reservar:", err);
+      setMensaje("❌ No se pudo conectar con el servidor.");
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen py-6 sm:py-12">
+      <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto px-4">
+        
+        {/* Contenedor principal con glassmorphism */}
+        <div className="backdrop-blur-lg bg-white/70 rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+          
+          {/* Header con gradiente */}
+          <div className="bg-gradient-to-r from-[#6A806C] via-[#AF7E44] to-[#6A806C] p-6 sm:p-8 text-center">
+            <div className="flex items-center justify-center mb-4">
+              <div className="bg-white/20 p-3 rounded-full backdrop-blur-sm">
+                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                </svg>
+              </div>
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
+              Reservar Cita
+            </h1>
+            <p className="text-white/80 text-sm sm:text-base">
+              Agenda tu tratamiento de belleza personalizado
+            </p>
+          </div>
+
+          {/* Información de horarios con diseño mejorado */}
+          <div className="p-6 sm:p-8">
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-4 sm:p-5 mb-6 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-blue-100 rounded-full -translate-y-10 translate-x-10 opacity-50"></div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  </svg>
+                  <span className="font-semibold text-blue-800">Horario de atención</span>
+                </div>
+                <p className="text-sm text-gray-700 mb-1">
+                  Lunes a Viernes de <span className="font-bold text-blue-700">15:00 a 19:30</span>
+                </p>
+                <p className="text-xs text-red-600 font-medium flex items-center gap-1">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  Sábados y Domingos cerrado
+                </p>
+              </div>
+            </div>
+
+            {/* Formulario con espaciado mejorado */}
+            <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+              
+              {/* Grid para campos principales */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                
+                {/* Nombre */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-800 flex items-center gap-2">
+                    <svg className="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                    </svg>
+                    Nombre *
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl bg-white text-gray-800 text-sm sm:text-base placeholder-gray-400 transition-all duration-300 focus:border-pink-400 focus:outline-none focus:ring-4 focus:ring-pink-100 hover:border-gray-300"
+                    value={form.nombre}
+                    onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+                    placeholder="Tu nombre completo"
+                  />
+                </div>
+
+                {/* Email */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-800 flex items-center gap-2">
+                    <svg className="w-4 h-4 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl bg-white text-gray-800 text-sm sm:text-base placeholder-gray-400 transition-all duration-300 focus:border-purple-400 focus:outline-none focus:ring-4 focus:ring-purple-100 hover:border-gray-300"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    placeholder="tu@email.com"
+                  />
+                </div>
+              </div>
+
+              {/* Celular */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-800 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                  Celular *
+                </label>
+                <input
+                  type="text"
+                  className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl bg-white text-gray-800 text-sm sm:text-base placeholder-gray-400 transition-all duration-300 focus:border-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-100 hover:border-gray-300"
+                  value={form.celular}
+                  onChange={(e) => setForm({ ...form, celular: e.target.value })}
+                  placeholder="+34 XXX XXX XXX"
+                />
+              </div>
+
+              {/* Empleado (si hay más de uno) */}
+              {empleados.length > 1 && (
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-800 flex items-center gap-2">
+                    <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Profesional
+                  </label>
+                  <select
+                    className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl bg-white text-gray-800 text-sm sm:text-base transition-all duration-300 focus:border-green-400 focus:outline-none focus:ring-4 focus:ring-green-100 hover:border-gray-300"
+                    value={form.empleado}
+                    onChange={(e) => setForm({ ...form, empleado: e.target.value })}
+                  >
+                    {empleados.map((emp) => (
+                      <option key={emp} value={emp}>
+                        {emp}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {/* Servicio */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-800 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-rose-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                  </svg>
+                  Servicio *
+                </label>
+                <select
+                  className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl bg-white text-gray-800 text-sm sm:text-base transition-all duration-300 focus:border-rose-400 focus:outline-none focus:ring-4 focus:ring-rose-100 hover:border-gray-300"
+                  value={form.servicio}
+                  onChange={(e) => setForm({ ...form, servicio: e.target.value })}
+                >
+                  <option value="">Selecciona un servicio</option>
+                  {servicios.map((srv) => (
+                    <option key={srv} value={srv}>
+                      {srv}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Grid para fecha y hora */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                
+                {/* Fecha */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-800 flex items-center gap-2">
+                    <svg className="w-4 h-4 text-teal-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                    </svg>
+                    Fecha *
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl bg-white text-gray-800 text-sm sm:text-base transition-all duration-300 focus:border-teal-400 focus:outline-none focus:ring-4 focus:ring-teal-100 hover:border-gray-300"
+                    value={form.fecha}
+                    onChange={(e) => setForm({ ...form, fecha: e.target.value })}
+                    min={new Date().toISOString().split('T')[0]}
+                  />
+                </div>
+                
+                {/* Hora */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-800 flex items-center gap-2">
+                    <svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                    </svg>
+                    Hora *
+                  </label>
+                  <select
+                    className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl bg-white text-gray-800 text-sm sm:text-base transition-all duration-300 focus:border-amber-400 focus:outline-none focus:ring-4 focus:ring-amber-100 hover:border-gray-300 disabled:bg-gray-100 disabled:cursor-not-allowed disabled:border-gray-200"
+                    value={form.hora}
+                    onChange={(e) => setForm({ ...form, hora: e.target.value })}
+                    disabled={!horasDisponibles.length || !esDiaLaborable(form.fecha)}
+                  >
+                    <option value="">
+                      {horasDisponibles.length > 0 ? "Selecciona una hora" : "No hay horarios disponibles"}
+                    </option>
+                    {horasDisponibles.map((hora) => (
+                      <option key={hora} value={hora}>
+                        {hora}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              
+              {/* Alerta fin de semana con mejor diseño */}
+              {form.fecha && !esDiaLaborable(form.fecha) && (
+                <div className="bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-xl p-4 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-red-100 rounded-full -translate-y-8 translate-x-8 opacity-50"></div>
+                  <div className="relative z-10 flex items-center gap-3">
+                    <div className="bg-red-100 p-2 rounded-full">
+                      <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <p className="text-sm text-red-700 font-medium">
+                      Los fines de semana estamos cerrados. Por favor selecciona un día de Lunes a Viernes.
+                    </p>
+                  </div>
+                </div>
+              )}
+              
+              {/* Mensaje de no horarios disponibles */}
+              {horasDisponibles.length === 0 && form.fecha && esDiaLaborable(form.fecha) && (
+                <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200 rounded-xl p-4 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-yellow-100 rounded-full -translate-y-8 translate-x-8 opacity-50"></div>
+                  <div className="relative z-10 flex items-center gap-3">
+                    <div className="bg-yellow-100 p-2 rounded-full">
+                      <svg className="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <p className="text-sm text-yellow-700 font-medium">
+                      No hay horarios disponibles para esta fecha.
+                    </p>
+                  </div>
+                </div>
+              )}
+              
+              {/* Nota opcional */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-800 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-slate-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+                  </svg>
+                  Nota (opcional)
+                </label>
+                <textarea
+                  className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl bg-white text-gray-800 text-sm sm:text-base placeholder-gray-400 transition-all duration-300 focus:border-slate-400 focus:outline-none focus:ring-4 focus:ring-slate-100 hover:border-gray-300 resize-none"
+                  rows={4}
+                  value={form.nota}
+                  onChange={(e) => setForm({ ...form, nota: e.target.value })}
+                  placeholder="Información adicional sobre tu cita, alergias, preferencias..."
+                />
+              </div>
+
+              {/* Botón de envío con mejor diseño */}
+              <button
+                type="submit"
+                disabled={loading || !esDiaLaborable(form.fecha)}
+                className={`w-full py-4 sm:py-5 px-6 text-base sm:text-lg font-bold text-white rounded-2xl transition-all duration-300 transform ${
+                  loading || !esDiaLaborable(form.fecha)
+                    ? "bg-gray-400 cursor-not-allowed opacity-60"
+                    : "bg-gradient-to-r from-[#6A806C] via-[#AF7E44] to-[#6A806C] hover:from-[#5A706C] hover:via-[#9F6E34] hover:to-[#5A706C] hover:shadow-2xl hover:shadow-[#AF7E44]/25 active:scale-95 shadow-lg shadow-[#AF7E44]/20"
+                }`}
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    Procesando tu reserva...
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center gap-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    Reservar Cita
+                  </div>
+                )}
+              </button>
+
+              {/* Mensaje de respuesta con mejor diseño */}
+              {mensaje && (
+                <div
+                  className={`mt-6 text-sm sm:text-base border-2 rounded-2xl p-4 sm:p-5 relative overflow-hidden ${
+                    mensaje.includes("❌")
+                      ? "bg-gradient-to-r from-red-50 to-pink-50 text-red-700 border-red-200"
+                      : "bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 border-green-200"
+                  }`}
+                >
+                  <div className={`absolute top-0 right-0 w-20 h-20 rounded-full -translate-y-10 translate-x-10 opacity-30 ${
+                    mensaje.includes("❌") ? "bg-red-200" : "bg-green-200"
+                  }`}></div>
+                  <div className="relative z-10 flex items-start gap-3">
+                    <div className={`p-2 rounded-full flex-shrink-0 ${
+                      mensaje.includes("❌") ? "bg-red-100" : "bg-green-100"
+                    }`}>
+                      {mensaje.includes("❌") ? (
+                        <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                      ) : (
+                        <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </div>
+                    <div dangerouslySetInnerHTML={{ __html: mensaje }} />
+                  </div>
+                </div>
+              )}
+
+            </form>
+          </div>
+        </div>
+        
+        {/* Espacio final */}
+        <div className="h-12" />
+      </div>
+    </div>
+  );
+}
+
+
+
+===== components/ServicioBox.tsx =====
+
+'use client';
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { FaCalendarAlt, FaArrowRight, FaStar, FaWhatsapp } from "react-icons/fa";
+import { useState } from "react";
+
+interface ServicioBoxProps {
+  data: {
+    file: string;
+    title: string;
+    description: string;
+  };
+}
+
+const ServicioBox = ({ data }: ServicioBoxProps) => {
+  const { file, title, description } = data;
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Mensaje de WhatsApp personalizado para el servicio
+  const whatsappMessage = encodeURIComponent(
+    `¡Hola! Me interesa obtener más información sobre el servicio de ${title}. ¿Podrían ayudarme?`
+  );
+  const whatsappLink = `https://wa.me/34691589789?text=${whatsappMessage}`;
+
+  return (
+    <motion.div
+      className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white via-gray-50 to-blue-50/50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20 border border-white/20 dark:border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-500"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      whileHover={{ y: -8, scale: 1.02 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
+      {/* Elemento decorativo de fondo */}
+      <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
+      {/* Badge de calidad */}
+      <motion.div 
+        className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg flex items-center gap-1"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.3, duration: 0.3, type: "spring" }}
+      >
+        <FaStar className="text-xs" />
+        Premium
+      </motion.div>
+
+      <div className="relative p-4 sm:p-6 h-full flex flex-col">
+        {/* Imagen con efectos */}
+        <motion.div 
+          className="relative w-full h-[240px] sm:h-[280px] overflow-hidden rounded-xl sm:rounded-2xl mb-4 sm:mb-6 shadow-lg group-hover:shadow-xl transition-shadow duration-500"
+          layoutId={`image-${title}`}
+        >
+          {/* Overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          
+          {/* Imagen */}
+          <motion.div
+            className="relative w-full h-full"
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <Image
+              src={file}
+              alt={title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </motion.div>
+
+          {/* Efecto de brillo */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"
+            style={{ width: '200%' }}
+          />
+        </motion.div>
+
+        {/* Contenido */}
+        <div className="flex-1 flex flex-col">
+          {/* Título - más grande en móvil */}
+          <motion.h3 
+            className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-3 sm:mb-4 group-hover:text-secondary transition-colors duration-300 leading-tight"
+            layoutId={`title-${title}`}
+          >
+            {title}
+          </motion.h3>
+
+          {/* Descripción - más grande y mejor espaciado */}
+          <motion.p 
+            className="text-gray-600 dark:text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 flex-1 text-justify font-medium"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
+          >
+            {description}
+          </motion.p>
+
+          {/* Línea decorativa */}
+          <motion.div 
+            className="w-10 sm:w-12 h-1 bg-gradient-to-r from-secondary to-primary rounded-full mb-4 sm:mb-6 group-hover:w-16 sm:group-hover:w-20 transition-all duration-300"
+            initial={{ width: 0 }}
+            animate={{ width: 40 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+          />
+
+          {/* Botones de acción - mejorados para móvil */}
+          <div className="flex flex-col gap-3">
+            {/* Botón principal - Separar Cita */}
+            <Link href="/separar-cita" className="w-full">
+              <motion.div
+                className="w-full bg-gradient-to-r from-secondary to-primary text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-semibold text-center shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn text-base sm:text-lg"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <FaCalendarAlt className="text-sm sm:text-base group-hover/btn:animate-bounce" />
+                <span>Separar Cita</span>
+                <motion.div
+                  animate={isHovered ? { x: 5 } : { x: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <FaArrowRight className="text-sm sm:text-base" />
+                </motion.div>
+              </motion.div>
+            </Link>
+
+            {/* Botón secundario - WhatsApp - ahora full width en móvil */}
+            <motion.a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group/wa hover:from-green-600 hover:to-green-700 text-base sm:text-lg"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FaWhatsapp className="text-lg sm:text-xl group-hover/wa:animate-pulse" />
+              <span>Consultar por WhatsApp</span>
+            </motion.a>
+          </div>
+        </div>
+
+        {/* Efectos adicionales */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+        />
+
+        {/* Partículas flotantes (opcional) - reducidas en móvil */}
+        {isHovered && (
+          <>
+            {[...Array(4)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-secondary/40 rounded-full"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                }}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ 
+                  opacity: [0, 1, 0], 
+                  scale: [0, 1, 0],
+                  y: [-20, -60],
+                }}
+                transition={{ 
+                  duration: 2,
+                  delay: i * 0.2,
+                  repeat: Infinity,
+                  repeatType: "loop"
+                }}
+              />
+            ))}
+          </>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
+export default ServicioBox;
+
+
+
+===== components/transition-component.tsx =====
+
+"use client";
+
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { fadeIn } from "@/utils/motion-transitions";
+
+export type MotionTransitionProps = {
+  children: React.ReactNode;
+  className?: string;
+  position: "right" | "bottom";
+};
+
+export function MotionTransition(props: MotionTransitionProps) {
+  const { children, className, position } = props;
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null; // ⛔ evita render en el servidor
+
+  return (
+    <motion.div
+      variants={fadeIn(position)}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+
+
+===== components/transition-page.tsx =====
+
+"use client";
+
+import { transitionVariantsPage } from "@/utils/motion-transitions";
+import { AnimatePresence, motion } from "framer-motion";
+
+const TransitionPage = () => {
+    return (
+        <AnimatePresence mode="wait">
+            <div>
+                <motion.div
+                    className="fixed top-0 bottom-0 right-full w-screen h-screen z-30 bg-[#2e2257]"
+                    variants={transitionVariantsPage}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    transition={{ delay: 0.2, duration: 0.6, ease: "easeInOut" }}
+                ></motion.div>
+            </div>
+        </AnimatePresence>
+    );
+}
+
+export default TransitionPage;
+
+
+
+===== config/api.ts =====
+
+// config/api.ts
+
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://essentialux-1.onrender.com' // Tu backend en producción
+  : 'http://localhost:3000';             // Backend local
+
+export { API_BASE_URL };
+
+
+
+===== utils/motion-transitions.tsx =====
+
+export const transitionVariantsPage = {
+    initial: {
+        x: "100%",
+        width: "100%",
+    },
+    animate: {
+        x: "0%",
+        width: "0%",
+    },
+    exit: {
+        x: ["0%", "100%"],
+        width: ["0%", "100%"],
+    },
+};
+
+export const motionTransitionsAbout = {
+    initial: {
+        opacity: 0,
+        bottom: "5rem",
+        transform: "translateY(200px)",
+    },
+    transition: {
+        duration: 2.3,
+        type: "tween",
+        ease: [0.25, 0.6, 0.3, 0.8],
+    },
+    animate: {
+        opacity: 1,
+        transform: "translateY(0px)",
+    },
+};
+
+
+export const fadeIn = (position: string) => {
+    return {
+        visible: {
+            y: 0,
+            x: 0,
+            opacity: 1,
+            transition: {
+                type: "tween",
+                duration: 1.4,
+                delay: 0.5,
+                ease: [0.25, 0.25, 0.25, 0.75],
+            },
+        },
+        hidden: {
+            y: position === 'bottom' ? -80 : 0,
+            x: position === 'right' ? 80 : 0,
+            opacity: 0,
+            transition: {
+                type: "tween",
+                duration: 0.5,
+                delay: 0.5,
+                ease: [0.25, 0.25, 0.25, 0.25],
+            },
+        },
+
+    };
+};
+
+

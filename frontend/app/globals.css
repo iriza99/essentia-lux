@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Estilos base optimizados ===== */
+@layer base {
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    color-scheme: light;
+    scroll-padding-top: 80px;
+  }
+  
+  body {
+    @apply font-urbanist text-textprimario;
+    line-height: 1.6;
+    min-height: 100vh;
+    
+    /* Optimizaciones de renderizado */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+    
+    /* Forzar esquema de colores claro */
+    color-scheme: light;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Optimizaciones para móviles */
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+      -webkit-backface-visibility: hidden;
+      -webkit-perspective: 1000;
+    }
+  }
+  
+  /* Forzar colores claros en todos los elementos */
+  *, *::before, *::after {
+    color-scheme: light;
+  }
+}
+
+/* ===== Fixes para inputs ===== */
+@layer base {
+  input, select, textarea, button {
+    @apply no-zoom font-urbanist;
+    color-scheme: light;
+  }
+  
+  /* Inputs específicos */
+  input[type="date"], 
+  input[type="time"], 
+  input[type="datetime-local"] {
+    color-scheme: light;
+    @apply bg-white text-textprimario;
+  }
+  
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* ===== Componentes base usando Tailwind ===== */
+@layer components {
+  .card-base {
+    @apply bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-mobile-lg border border-white/20 transition-all duration-300 text-textprimario;
+  }
+  
+  .card-hover:hover {
+    @apply -translate-y-0.5 shadow-mobile-xl bg-white/95;
+  }
+  
+  /* Botones usando variables de Tailwind */
+  .btn-base {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-2xl font-medium text-base leading-6 transition-all duration-300 no-underline border-none cursor-pointer touch-target font-urbanist;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white shadow-mobile;
+  }
+  
+  .btn-primary:hover {
+    @apply bg-primary/90 -translate-y-px shadow-primary;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white shadow-mobile;
+  }
+  
+  .btn-secondary:hover {
+    @apply bg-secondary/90 -translate-y-px shadow-secondary;
+  }
+  
+  /* Headings usando variables de Tailwind */
+  .heading-main {
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 text-center text-primary font-urbanist;
+  }
+  
+  .heading-section {
+    @apply text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-secondary font-urbanist;
+  }
+  
+  /* Input styles usando variables de Tailwind */
+  .input-base {
+    @apply w-full px-4 py-3 rounded-xl border border-border bg-white text-textprimario no-zoom leading-6 transition-all duration-300 font-urbanist touch-target;
+  }
+  
+  .input-base::placeholder {
+    @apply text-textsecundario;
+  }
+  
+  .input-base:focus {
+    @apply outline-none border-primary shadow-[0_0_0_3px_rgba(175,126,68,0.1)];
+  }
+}
+
+/* ===== FIX CRÍTICO PARA HEADER SIEMPRE VISIBLE EN MÓVIL ===== */
+/* Remover cualquier estilo que pueda interferir con el header */
+header {
+  /* En móvil, el position fixed se maneja con un wrapper div */
+}
+
+/* Para desktop sí aplicar fixed */
+@media (min-width: 1024px) {
+  header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+  }
+}
+
+/* ===== NAVBAR FIJO DEBAJO DEL HEADER ===== */
+nav {
+  position: fixed !important;
+  z-index: 9998 !important;
+  -webkit-transform: translateZ(0) !important;
+  transform: translateZ(0) !important;
+}
+
+/* Asegurar scroll horizontal suave en móvil */
+@media (max-width: 1023px) {
+  nav {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  nav::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+}
+
+/* ===== MODAL OVERLAY FIX - CRÍTICO PARA MÓVILES ===== */
+/* Asegurar que los modales siempre aparezcan sobre todo */
+[style*="position: fixed"][style*="z-index"]:not(header):not(nav) {
+  position: fixed !important;
+  z-index: 99999 !important;
+}
+
+/* Fix específico para modales en móvil */
+@media (max-width: 768px) {
+  /* Asegurar que los overlays de modales sean visibles */
+  div[style*="position: fixed"][style*="backgroundColor"]:not(header):not(nav) {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 99999 !important;
+    display: flex !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}
+
+/* ===== Media queries específicas ===== */
+@media (max-width: 360px) {
+  .card-base {
+    @apply p-4 rounded-xl;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 640px) {
+  .heading-main {
+    @apply mb-4;
+  }
+}
+
+/* ===== Forzar modo claro ===== */
+@media (prefers-color-scheme: dark) {
+  html, body {
+    color-scheme: light;
+    @apply text-textprimario;
+  }
+  
+  * {
+    color-scheme: light;
+  }
+}
+
+/* ===== Performance optimizations ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+}

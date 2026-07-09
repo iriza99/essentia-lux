@@ -1,0 +1,34 @@
+# robots.txt para Essentia Lux
+# https://www.essluxam.com/robots.txt
+
+# Permitir acceso a todos los bots de búsqueda
+User-agent: *
+Allow: /
+
+# Bloquear acceso a archivos y carpetas del sistema
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+
+# Permitir explícitamente el rastreo de recursos importantes
+Allow: /*.css
+Allow: /*.js
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.png
+Allow: /*.webp
+Allow: /*.svg
+Allow: /*.gif
+
+# Configuración específica para Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Configuración específica para Googlebot de imágenes
+User-agent: Googlebot-Image
+Allow: /
+
+# Ubicación del sitemap
+Sitemap: https://www.essluxam.com/sitemap.xml
