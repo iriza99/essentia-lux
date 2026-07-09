@@ -10,14 +10,15 @@ export const revalidate = 60;
 export default async function ProductoPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
   const supabase = await createClient();
 
   const { data: product } = await supabase
     .from("products")
     .select("*")
-    .eq("slug", params.slug)
+    .eq("slug", slug)
     .eq("active", true)
     .single<Product>();
 

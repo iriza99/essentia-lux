@@ -1,5 +1,17 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Repo root has its own package-lock.json alongside this frontend/ one;
+  // scope file tracing to this project so Vercel doesn't pull in backend/.
+  outputFileTracingRoot: path.join(__dirname),
+  eslint: {
+    // eslint-config-next pins ESLint 8, which is incompatible with the
+    // linter API Next 15's build step expects ("Unknown options: useEslintrc,
+    // extensions"). Type-checking (tsc --noEmit) already runs clean; skip
+    // lint at build time until eslint-config-next ships an ESLint 9 config.
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -15,17 +27,6 @@ const nextConfig = {
         pathname: '/storage/v1/object/public/**',
       },
     ],
-  },
-  webpack: (config) => {
-    // @supabase/ssr pulls in @supabase/realtime-js, which depends on `ws`
-    // (Node-only WebSocket client). We don't use Realtime, but the middleware
-    // bundle still includes it and `ws` references `__dirname`, which throws
-    // in the Edge Runtime. Stub it out so it never gets bundled.
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      ws: false,
-    };
-    return config;
   },
 };
 
