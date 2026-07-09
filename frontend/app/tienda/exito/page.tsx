@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
@@ -17,6 +17,14 @@ interface OrderSummary {
 }
 
 export default function PagoExitoPage() {
+  return (
+    <Suspense>
+      <PagoExitoContent />
+    </Suspense>
+  );
+}
+
+function PagoExitoContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const { clearCart } = useCart();
