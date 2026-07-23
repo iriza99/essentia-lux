@@ -1,5 +1,6 @@
 import { CodeSquare, HomeIcon, User2, MessageSquare, Star, ShoppingBag } from "lucide-react";
 import { FaWhatsapp, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { STORE_ENABLED } from "@/config/features";
 
 export const itemsNavbar = [
   {
@@ -32,12 +33,17 @@ export const itemsNavbar = [
     icon: <MessageSquare size={25} color="#4A4A4A" strokeWidth={1} />,
     link: "/separar-cita",
   },
-  {
-    id: 6,
-    title: "Tienda",
-    icon: <ShoppingBag size={25} color="#4A4A4A" strokeWidth={1} />,
-    link: "/tienda",
-  },
+  // La entrada "Tienda" solo aparece cuando STORE_ENABLED está activo.
+  ...(STORE_ENABLED
+    ? [
+        {
+          id: 6,
+          title: "Tienda",
+          icon: <ShoppingBag size={25} color="#4A4A4A" strokeWidth={1} />,
+          link: "/tienda",
+        },
+      ]
+    : []),
 ];
 
 // data/data.ts

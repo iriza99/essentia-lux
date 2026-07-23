@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AuthNavItem from "@/components/AuthNavItem";
+import { STORE_ENABLED } from "@/config/features";
 
 const fadeIn = (position: "right" | "bottom") => {
   return {
@@ -183,7 +184,7 @@ const Header = () => {
                   </div>
                 </Link>
               ))}
-              <AuthNavItem />
+              {STORE_ENABLED && <AuthNavItem />}
             </div>
           </div>
         </div>
@@ -257,7 +258,7 @@ const Header = () => {
                   </div>
                 </Link>
               ))}
-              <AuthNavItem />
+              {STORE_ENABLED && <AuthNavItem />}
             </div>
           </div>
         </div>
